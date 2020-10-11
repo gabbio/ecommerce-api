@@ -48,6 +48,30 @@ class ItemsController {
       })
     })
   }
+
+  getItem(req, res) {
+    let itemId = parseInt(req.params.id)
+
+    Item.findByPk(itemId).then(item => {
+      if (item) {
+        res.status(200).send({
+          success: true,
+          message: 'Item successfully found!',
+          item
+        })
+      } else {
+        res.status(404).send({
+          success: false,
+          message: 'Item not found!',
+        })
+      }
+    }).catch((err) => {
+      res.status(500).send({
+        success: false,
+        message: 'Something went wrong!'
+      })
+    })
+  }
 }
 
 module.exports = (new ItemsController())

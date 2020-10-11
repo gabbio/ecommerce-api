@@ -23,7 +23,8 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.FLOAT,
       allowNull: false
     },
-    description: DataTypes.STRING
+    description: DataTypes.STRING,
+    vendor_name: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Item',
