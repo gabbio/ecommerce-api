@@ -32,6 +32,22 @@ class ItemsController {
       })
     });
   }
+
+  addItem(req, res) {
+    Item.create(req.body).then((created) => {
+      res.status(201).send({
+        success: true,
+        message: 'Item successfully created!',
+        item: created
+      })
+    }).catch((err) => {
+      res.status(500).send({
+        success: false,
+        message: 'Cannot process your request!',
+        error: err.message
+      })
+    })
+  }
 }
 
 module.exports = (new ItemsController())
