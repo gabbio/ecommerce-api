@@ -85,21 +85,48 @@ class ItemsController {
     let itemId = parseInt(req.params.id)
     let item = await Item.findByPk(itemId)
 
-    if (item) {
-      item.update(req.body, { fields: itemAllowedParams() }).then(() => {
-        res.status(204).send()
-      }).catch((err) => {
-        res.status(422).send({
-          success: false,
-          message: 'Something went wrong!'
-        })
-      })
-    } else {
-      res.status(404).send({
+    if (!item) {
+      return res.status(404).send({
         success: false,
         message: 'Item not found!'
       })
     }
+
+    item.update(req.body, { fields: itemAllowedParams() }).then(() => {
+      res.status(204).send()
+    }).catch((err) => {
+      res.status(422).send({
+        success: false,
+        message: 'Something went wrong!'
+      })
+    })
+  }
+
+  // Delete an item based on provided ID
+  async deleteItem(req, res) {
+    let itemId = parseInt(req.params.id)
+    let item = await Item.findByPk(itemId)
+
+    if (!item) {
+      return res.status(404).send({
+        success: false,
+        message: 'Item not found!'
+      })
+    }
+
+    item.destroy().then(deleted => {
+      if (deleted) {
+        res.status(200).send({
+          success: true,
+          message: 'Item successfully deleted!'
+        })
+      }
+    }).catch((err) => {
+      res.status(422).send({
+        success: false,
+        message: 'Something went wrong!'
+      })
+    })
   }
 }
 
