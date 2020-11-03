@@ -84,7 +84,7 @@ class CartsController {
     let cartItems = await auth_user.getCartItems({ where: { id: cartItemId } })
 
     if (cartItems.length === 0) {
-      return res.status(422).send({
+      return res.status(404).send({
         succes: false,
         message: 'Cart item not found!'
       })
