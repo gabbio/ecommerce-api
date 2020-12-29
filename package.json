@@ -5,8 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:dev": "nodemon app.js",
-    "start": "node app.js"
+    "start:dev": "sequelize db:migrate && nodemon --inspect=0.0.0.0 app.js",
+    "start": "sequelize db:migrate && node app.js"
   },
   "author": "",
   "license": "ISC",
@@ -23,6 +23,6 @@
     "swagger-ui-express": "^4.1.4"
   },
   "devDependencies": {
-    "nodemon": "^2.0.4"
+    "nodemon": "^2.0.6"
   }
 }
