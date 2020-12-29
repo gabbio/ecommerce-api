@@ -1,0 +1,30 @@
+version: '3.5'
+volumes:
+  data:
+services:
+  app:
+    tty: true
+    stdin_open: true
+    build:
+      context: .
+      args:
+        - APP_ROOT
+    restart: unless-stopped
+    volumes:
+      - ./:$APP_ROOT
+    environment:
+      - NODE_ENV
+    depends_on:
+      - datastore
+    ports:
+      - "5000:5000"
+  datastore:
+    image: mysql:5.7
+    restart: unless-stopped
+    environment:
+      - MYSQL_RANDOM_ROOT_PASSWORD
+      - MYSQL_DATABASE=$DATABASE_NAME
+      - MYSQL_USER=$DATABASE_USER
+      - MYSQL_PASSWORD=$DATABASE_PASSWORD
+    volumes:
+      - ./data:/var/lib/mysql
