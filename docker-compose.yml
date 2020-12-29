@@ -11,6 +11,7 @@ services:
         - APP_ROOT
     restart: unless-stopped
     volumes:
+      - "$APP_ROOT/node_modules"
       - ./:$APP_ROOT
     environment:
       - NODE_ENV
